@@ -1,7 +1,7 @@
 <template>
   <transition name="move">
     <div v-show="showFlag" class="food" ref="food">
-      <div class="foodcontent">
+      <div class="food-content">
         <div class="image-header">
           <img :src="food.image">
           <div class="back" @click="hide">
@@ -19,7 +19,7 @@
             <span class="old" v-show="food.oldPrice">¥{{food.oldPrice}}</span>
           </div>
           <div class="cartcontrol-wrapper">
-            <cartcontrol :food="food" class="buyfood"></cartcontrol>
+            <cartcontrol @add="addFood" :food="food"></cartcontrol>
           </div>
           <transition name="fade">
             <div @click.stop.prevent="addFirst" class="buy" v-show="!food.count || food.count===0">
@@ -80,12 +80,15 @@ export default {
     // 添加第一个商品，标签绑定点击事件
     addFirst (event) {
       // 多次点击
-      if (!event._constructored) {
+      if (!event._constructed) {
         return
       }
       // 派发事件
       this.$emit('add', event.target)
       Vue.set(this.food, 'count', 1)
+    },
+    addFood (target) {
+      this.$emit('add', target)
     }
   },
   components: {
@@ -97,6 +100,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+  @import "../../common/stylus/mixin.styl"
   .food
     position: fixed
     left: 0
@@ -132,7 +136,6 @@ export default {
           padding: .20rem
           font-size: .40rem
           color: #ffffff
-
     .content
       position: relative
       padding: .36rem

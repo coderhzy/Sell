@@ -29,7 +29,7 @@
                     <span class="now">¥{{food.price}}</span><span v-show="food.oldPrice" class="old">¥{{food.oldPrice}}</span>
                   </div>
                   <div class="cartcontrol-wrapper">
-                    <cartcontrol @add="_drop" :food="food"></cartcontrol>
+                    <cartcontrol @add="addFood" :food="food"></cartcontrol>
                   </div>
                 </div>
               </li>
@@ -117,6 +117,9 @@ export default {
       this.selectedFood = food
       // 父组件使用子组件的方法,show置为true
       this.$refs.food.show()
+    },
+    addFood (target) {
+      this._drop(target)
     },
     // 访问shopcart子组件
     _drop (target) {
