@@ -1,5 +1,5 @@
 <template>
-  <transition name="move">
+  <transition name="move" >
     <div v-show="showFlag" class="food" ref="food">
       <div class="food-content">
         <div class="image-header">
@@ -27,18 +27,20 @@
             </div>
           </transition>
         </div>
-      </div>
       <split v-show="food.info"></split>
       <div class="info" v-show="food.info">
         <h1 class="title">商品信息</h1>
         <p class="text">{{food.info}}</p>
       </div>
-    </div>
       <split></split>
       <div class="rating">
         <h1 class="title">商品评价</h1>
-        <ratingselect></ratingselect>
+        <ratingselect :selectType="selectType"
+                      :onlyContent="onlyContent" :desc="desc"
+                      :ratings="food.ratings"></ratingselect>
       </div>
+      </div>
+    </div>
   </transition>
 </template>
 
@@ -48,6 +50,7 @@ import Vue from 'vue'
 import cartcontrol from '../cartcontrol/cartcontrol'
 import split from '../split/split'
 import ratingselect from '../ratingselect/ratingselect'
+const ALL = 2
 export default {
   props: {
     food: {
@@ -56,13 +59,23 @@ export default {
   },
   data () {
     return {
-      showFlag: false
+      showFlag: false,
+      selectType: ALL,
+      onlyContent: true,
+      desc: {
+        all: '全部',
+        positive: '推荐',
+        negative: '吐槽'
+      }
     }
   },
   methods: {
     // 展示goods
     show () {
       this.showFlag = true
+      // 初始化数据
+      this.selectType = ALL
+      this.onlyContent = true
       // BScroll
       this.$nextTick(() => {
         if (!this.scroll) {
@@ -199,6 +212,13 @@ export default {
       .text
         line-height: .48rem
         padding: 0 .16rem
-        font-size: rgb(77,85,93)
-
+        font-size: .24rem
+        color: rgb(77,85,93)
+    .rating
+      padding-top:.36rem
+      .title
+        line-height: .28rem
+        margin-left: .36rem
+        font-size: .28rem
+        color: rbg(7,17,27)
 </style>
