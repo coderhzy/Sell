@@ -35,9 +35,27 @@
       <split></split>
       <div class="rating">
         <h1 class="title">商品评价</h1>
-        <ratingselect :selectType="selectType"
+        <ratingselect @select="selectRating"
+                      @toggle="toggleContent"
+                      :selectType="selectType"
                       :onlyContent="onlyContent" :desc="desc"
                       :ratings="food.ratings"></ratingselect>
+        <div class="rating-wrapper">
+          <ul v-show="food.ratings && food.ratings.length">
+            <li v-show="needShow(rating.rateType,rating.text)" v-for="(rating,index) in food.ratings" class="rating-item" :key="index">
+              <div class="user">
+                <span class="name">{{rating.username}}</span>
+                <img class="avatar" width="12" height="12" :src="rating.avatar">
+              </div>
+              <div class="time">{{rating.rateTime | formatDate}}</div>
+              <p class="text">
+<!--                <span :class="{'icon-damuzhi2':rating.rateType===0,'icon-down':rating.rateType===1}">&#xe67a;</span>-->
+                <span class="iconfont icon-up">&#xe67a;</span>{{rating.text}}
+              </p>
+            </li>
+          </ul>
+          <div class="no-rating" v-show="!food.ratings || !food.ratings.length">暂无评价</div>
+        </div>
       </div>
       </div>
     </div>
@@ -47,6 +65,7 @@
 <script>
 import BScroll from 'better-scroll'
 import Vue from 'vue'
+import {formatDate} from '../../common/js/date'
 import cartcontrol from '../cartcontrol/cartcontrol'
 import split from '../split/split'
 import ratingselect from '../ratingselect/ratingselect'
@@ -61,7 +80,7 @@ export default {
     return {
       showFlag: false,
       selectType: ALL,
-      onlyContent: true,
+      onlyContent: false,
       desc: {
         all: '全部',
         positive: '推荐',
@@ -100,8 +119,57 @@ export default {
       this.$emit('add', event.target)
       Vue.set(this.food, 'count', 1)
     },
+    // 添加商品按钮事件 并绑定在标签上
     addFood (target) {
       this.$emit('add', target)
+    },
+    // 添加选择按钮事件 并绑定在标签上
+    selectRating (type) {
+      this.selectType = type
+      this.$nextTick(() => {
+        this.scroll.refresh()
+      })
+    },
+    // 添加切换选中事件 并绑定在标签上
+    toggleContent () {
+      this.onlyContent = !this.onlyContent
+      this.$nextTick(() => {
+        this.scroll.refresh()
+      })
+    },
+    // 过滤评论内容
+    needShow (type, text) {
+      // 判断内容
+      if (this.onlyContent && !text) {
+        return false
+      }
+      // 判断类型
+      if (this.selectType === ALL) {
+        return true
+      } else {
+        return type === this.selectType
+      }
+    }
+  },
+  // 绑定子组件定义事件
+  events: {
+    'ratingtype.select' (type) {
+      this.selectType = type
+      this.$nextTick(() => {
+        this.scroll.refresh()
+      })
+    },
+    'content.toggle' (onlyContent) {
+      this.onlyContent = onlyContent
+      this.$nextTick(() => {
+        this.scroll.refresh()
+      })
+    }
+  },
+  filters: {
+    formatDate (time) {
+      let date = new Date(time)
+      return formatDate(date, 'yyyy-MM-dd hh:mm')
     }
   },
   components: {
@@ -221,4 +289,42 @@ export default {
         margin-left: .36rem
         font-size: .28rem
         color: rbg(7,17,27)
+      .rating-wrapper
+        padding: 0 .36rem
+        .rating-item
+          position: relative
+          padding: .32rem 0
+          border-1px(rgba(7,17,27,0.1))
+          .user
+            position: absolute
+            right: 0
+            top: .32rem
+            line-height: .24rem
+            font-size: 0
+            .name
+              display: inline-block
+              margin-right: .12rem
+              vertical-align: top
+              font-size: .20rem
+              color: rgb(147,153,159)
+            .avatar
+              border-radius: 50%
+          .time
+            margin-bottom: .12rem
+            line-height: .32rem
+            font-size: .20rem
+            color: rgb(147,153,159)
+          .text
+            line-height: .32rem
+            font-size: .24rem
+            color: rgb(7,17,27)
+            .icon-up
+              margin-rightL .08rem
+              line-height: .48rem
+              font-size: .24rem
+              color: rgb(0,160,220)
+            .no-rating
+              padding: 32rem 0
+              font-size: .24rem
+              color: rgb(147,153,159)
 </style>
