@@ -67,7 +67,7 @@ export default {
       .star-item
         width: .30rem
         height: .30rem
-        margin-right: .32rem
+        margin-right: .12rem
         background-size: .30rem .30rem
         &:last-child
           margin-right: 0
