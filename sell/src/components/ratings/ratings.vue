@@ -131,6 +131,7 @@ export default {
       })
     }
   },
+  //  显示时间
   filters: {
     formatDate (time) {
       let date = new Date(time)
