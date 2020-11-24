@@ -171,20 +171,34 @@ export default {
             line-height: .24rem
             font-size: .20rem
 
-      .support-count
-        position: absolute
-        right: .24rem
-        bottom: .36rem
-        padding: 0 .16rem
-        height: .48rem
-        line-height: .48rem
-        border-radius: .28rem
-        background-color: rbga(0, 0, 0, 0.2)
-        text-align: center
-        border: 1px solid;
+      //.support-count
+      //  position: absolute
+      //  right: .24rem
+      //  bottom: .36rem
+      //  padding: 0 .16rem
+      //  height: .48rem
+      //  line-height: .48rem
+      //  border-radius: .28rem
+      //  background-color: rbga(0, 0, 0, 0.2)
+      //  text-align: center
+      //  border: 1px solid;
+      //
+      //  .count
+      //    font-size: .20rem
 
-        .count
-          font-size: .20rem
+    .support-count
+      position: absolute
+      right: 12px
+      bottom: 14px
+      padding: 0 8px
+      height: 24px
+      line-height: 24px
+      border-radius: 14px
+      background: rgba(0, 0, 0, 0.2)
+      text-align: center
+      .count
+        vertical-align: top
+        font-size: 10px
 
     .bulletin-wrapper
       position: relative

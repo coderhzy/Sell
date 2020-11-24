@@ -11,10 +11,11 @@
         "build": "node build/build.js"
     },
     "dependencies": {
+        "better-scroll": "^2.0.0-beta.8",
         "vue": "^2.5.2",
-        "vue-router": "^3.0.1",
         "vue-resource": "^1.5.1",
-        "better-scroll": "^2.0.0-beta.8"
+        "vue-router": "^3.0.1",
+        "webpack-cli": "^4.2.0"
     },
     "devDependencies": {
         "autoprefixer": "^7.1.2",
@@ -54,20 +55,21 @@
         "postcss-url": "^7.2.1",
         "rimraf": "^2.6.0",
         "semver": "^5.3.0",
+        "serialize-javascript": "^3.1.0",
         "shelljs": "^0.7.6",
         "stylus": "^0.54.7",
         "stylus-loader": "^2.1.1",
-        "serialize-javascript": "^3.1.0",
         "uglifyjs-webpack-plugin": "^1.1.1",
         "url-loader": "^0.5.8",
         "vue-loader": "^13.3.0",
         "vue-style-loader": "^3.0.1",
         "vue-template-compiler": "^2.5.2",
-        "websocket-extensions": "^0.1.4",
         "webpack": "^3.6.0",
         "webpack-bundle-analyzer": "^3.3.2",
-        "webpack-dev-server": "^3.1.11",
-        "webpack-merge": "^4.1.0"
+        "webpack-d ev-server": "^3.1.11",
+        "webpack-dev-server": "^2.9.7",
+        "webpack-merge": "^4.1.0",
+        "websocket-extensions": "^0.1.4"
     },
     "engines": {
         "node": ">= 6.0.0",
