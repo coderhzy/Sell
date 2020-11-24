@@ -1,4 +1,21 @@
 # Sell
-🚀高仿饿了么点单
-## Vue2.0完成功能实现
-首次跟着黄轶老师将本项目基本功能实现，因学校课程原因导致有一些问题尚未解决，2020-07-09开始重构一次。仔细解决存在到问题。
+🚀饿了么点单
+## 技术栈
+Vue2.0、mock数据、vue-router、webpack、node.js
+## 项目运行
+
+### 下载
+```text
+git clone git@github.com:codehzy/Sell.git
+```
+
+### 安装依赖
+```text
+cd sell
+npm install
+```
+
+### 执行
+```text
+npm run start
+```
